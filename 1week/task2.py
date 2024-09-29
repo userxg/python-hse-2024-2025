@@ -1,13 +1,13 @@
-'''
+"""
 leetcode.com/problem-list/string/
 url: https://leetcode.com/problems/edit-distance/description/
-'''
+"""
 
 
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
         n, m = len(word1), len(word2)
-        dp =  [[0 for x in range(m + 1)] for y in range(n + 1)]
+        dp = [[0 for x in range(m + 1)] for y in range(n + 1)]
 
         for i in range(1, n + 1):
             dp[i][0] = i
