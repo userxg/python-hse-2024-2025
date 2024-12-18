@@ -1,19 +1,39 @@
 """
 leetcode.com/problem-list/sliding-window/
-url: https://leetcode.com/problems/continuous-subarrays/description/
+url: https://leetcode.com/problems/take-k-of-each-character-from-left-and-right/description/
 """
 
 
 class Solution:
-    def continuousSubarrays(self, nums: list[int]) -> int:
-        i = res = 0
-        d = dict()
-        for j, num in enumerate(nums):
-            t = d.copy()
-            for k, v in t.items():
-                if abs(k - num) > 2:
-                    i = max(i, v + 1)
-                    d.pop(k)
-            d[num] = j
-            res += j - i + 1
-        return res
+    def takeCharacters(self, s: str, k: int) -> int:
+        n = len(s)
+        l, r = 0, 0
+        ans = n
+        a, b, c = 0, 0, 0
+
+        totalA, totalB, totalC = s.count("a"), s.count("b"), s.count("c")
+
+        if totalA < k or totalB < k or totalC < k:
+            return -1
+
+        while r < n:
+            if s[r] == "a":
+                a += 1
+            if s[r] == "b":
+                b += 1
+            if s[r] == "c":
+                c += 1
+            r += 1
+
+            while a > totalA - k or b > totalB - k or c > totalC - k:
+                if s[l] == "a":
+                    a -= 1
+                if s[l] == "b":
+                    b -= 1
+                if s[l] == "c":
+                    c -= 1
+                l += 1
+
+            ans = min(ans, n - (r - l))
+
+        return ans
